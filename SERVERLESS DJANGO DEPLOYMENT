@@ -1,0 +1,25 @@
+#script to add at zappa_setting.json about in which region#
+{
+    "dev": {
+        ...
+        "profile_name": "Django deployment using serverless",
+        "aws_region" : "us-east-2",
+        ...
+    }
+}
+
+#script to acess from other hosts#
+[
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "GET"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "MaxAgeSeconds": 3000
+    }
+]
