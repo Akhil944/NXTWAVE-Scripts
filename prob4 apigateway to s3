@@ -1,0 +1,59 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "2022-10-18T06:37:28Z",
+    "title" : "myapigateway"
+  },
+  "host" : "2a242c88ge.execute-api.us-east-1.amazonaws.com",
+  "basePath" : "/dev",
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/{bucket}/{myfile}" : {
+      "put" : {
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "myfile",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "bucket",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "schema" : {
+              "$ref" : "#/definitions/Empty"
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "credentials" : "arn:aws:iam::867009630339:role/apigateway-ex1",
+          "httpMethod" : "PUT",
+          "uri" : "arn:aws:apigateway:ap-southeast-1:s3:path/{bucket}/{key}",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "requestParameters" : {
+            "integration.request.path.key" : "method.request.path.myfile",
+            "integration.request.path.bucket" : "method.request.path.bucket"
+          },
+          "passthroughBehavior" : "when_no_match",
+          "type" : "aws"
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Empty" : {
+      "type" : "object",
+      "title" : "Empty Schema"
+    }
+  },
+  "x-amazon-apigateway-binary-media-types" : [ "image/jpeg" ]
+}
