@@ -23,3 +23,24 @@
         "MaxAgeSeconds": 3000
     }
 ]
+
+#zappa_settings.json#
+{
+    "dev": {
+        "django_settings": "zappatest.settings",
+        "profile_name": "default",
+        "project_name": "zappatest",
+        "runtime": "python3.7",
+        "s3_bucket": "zappa-bqof1ad4l"
+    }
+}
+
+#‘zappatest-static-files#
+S3_BUCKET_NAME = "zappatest-static-files"
+STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
+AWS_S3_BUCKET_NAME_STATIC = S3_BUCKET_NAME
+# serve the static files directly from the specified s3 bucket
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % S3_BUCKET_NAME
+STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+# if you have configured a custom domain for your static files use:
+#AWS_S3_PUBLIC_URL_STATIC = "https://static.yourdomain.com/"
